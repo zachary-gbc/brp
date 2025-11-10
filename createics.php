@@ -52,8 +52,7 @@
 
     $getinstances="SELECT RP_PlanInstance FROM ReadingPlanDay GROUP BY RP_PlanInstance"; $instances="";
     if(!$rs=mysqli_query($db,$getinstances)) { echo("Unable to Run Query: $getinstances"); exit; }
-    while($row = mysqli_fetch_array($rs))
-    { $instances.=("<option value='" . $row['RP_PlanInstance'] . "'>" . $row['RP_PlanInstance'] . "</option>"); }
+    while($row = mysqli_fetch_array($rs)) { $instances.=("<option value='" . $row['RP_PlanInstance'] . "'>" . $row['RP_PlanInstance'] . "</option>"); }
 
     echo("<h3>Download Calendar File</h3>\n");
     echo("<form method='get' action=''><table>");
