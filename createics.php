@@ -7,6 +7,7 @@
     $prodid="Church Name";
     $dayortime="day";
     if(isset($_GET['planinstance'])) { $planinstance=$_GET['planinstance']; } else { $planinstance=""; }
+    if(isset($_GET['dayortime'])) { $dayortime=$_GET['dayortime']; } else { $dayortime=""; }
     if(isset($_GET['starttimeofday']) && $_GET['starttimeofday'] != "0") { $starttimeofday=$_GET['starttimeofday']; } else { $starttimeofday="090000"; }
     if(isset($_GET['endtimeofday']) && $_GET['endtimeofday'] != "0") { $endtimeofday=$_GET['endtimeofday']; } else { $endtimeofday="100000"; }
 
@@ -14,10 +15,6 @@
     if(!$rs=mysqli_query($db,$getvar)) { echo("Unable to Run Query: $getvar"); exit; }
     while($row = mysqli_fetch_array($rs)) { $prodid=$row['Var_Value']; }
     
-    $getvar="SELECT Var_Value FROM Variables WHERE (Var_Name='Day-or-Time')";
-    if(!$rs=mysqli_query($db,$getvar)) { echo("Unable to Run Query: $getvar"); exit; }
-    while($row = mysqli_fetch_array($rs)) { $dayortime=strtolower($row['Var_Value']); }
-
     $days="SELECT * FROM ReadingPlanDay WHERE (RP_PlanInstance='$planinstance')";
     if(!$rs=mysqli_query($db,$days)) { echo("Unable to Run Query: $days"); exit; }
     while($row = mysqli_fetch_array($rs))
@@ -61,7 +58,7 @@
     echo("<h3>Download Calendar File</h3>\n");
     echo("<form method='get' action=''><table>");
     echo("<tr><th style='text-align:right'>Reading Plan Instance: </th><td><select name='planinstance'>$instances</select></td></tr>\n");
-    echo("<tr><th style='text-align:right'>Full Day or Time Slot: </th><td><select value='timeorday'>");
+    echo("<tr><th style='text-align:right'>Full Day or Time Slot: </th><td><select name='dayortime'>");
     echo("<option value='day'>Full Day</option><option value='timeslot'>Time Slot</option></select></td></tr>\n");
     echo("<tr><th style='text-align:right'>Start of Time Slot (hhmm): </th><td><input name='starttimeofday' type='text' style='width:75px' placeholder='0900'</td></tr>\n");
     echo("<tr><th style='text-align:right'>End of Time Slot (hhmm): </th><td><input name='endtimeofday' type='text' style='width:75px' placeholder='1000'</td></tr>\n");

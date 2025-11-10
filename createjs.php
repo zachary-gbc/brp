@@ -14,7 +14,7 @@
       $content.=("<h4 style='font-family:Source Sans Pro'>" . date("F jS", strtotime($row['RP_Date'])) . "</h4>\n");
       $content.=("<p style='font-family:Source Sans Pro'><a href='https://www.biblegateway.com/passage/?search=" . str_replace(" ","%20",$row['RP_Verses']) . "&version=" . $row['RP_Version'] . "'>" . $row['RP_Verses'] . "</a></p>\n");
       $content.=("<p style='font-family:Source Sans Pro'>" . str_replace("\\n","<br>",($row['RP_Notes'])) . "</p>\n");
-      $contents.=("</div>\n");
+      $content.=("</div>\n");
     }
 
     if($content != "")
