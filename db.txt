@@ -1,0 +1,22 @@
+CREATE DATABASE IF NOT EXISTS brp_prod;
+
+DROP TABLE IF EXISTS ReadingPlanDay;
+CREATE TABLE ReadingPlanDay(
+  RP_PlanInstance VARCHAR(255) NOT NULL,
+  RP_Date INT NOT NULL,
+  RP_Verses VARCHAR(255) NOT NULL,
+  RP_Version VARCHAR(255) NOT NULL,
+  RP_Notes TEXT NULL,
+  RP_UpdateDateTime DATETIME NOT NULL,
+  PRIMARY KEY(RP_PlanInstance, RP_Date)
+);
+
+DROP TABLE IF EXISTS Variables;
+CREATE TABLE Variables(
+  Var_ID INT NOT NULL AUTO_INCREMENT,
+  Var_Name VARCHAR(255) NOT NULL,
+  Var_Value VARCHAR(255) NULL,
+  PRIMARY KEY(Var_ID)
+);
+INSERT INTO Variables(Var_Name, Var_Value) VALUES('Day-or-Time', 'day');
+INSERT INTO Variables(Var_Name, Var_Value) VALUES('PRODID', 'Church Name');

@@ -1,2 +1,2 @@
-# brp
+# BRP
 Bible Reading Plan
