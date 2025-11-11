@@ -54,7 +54,7 @@
     if(!$rs=mysqli_query($db,$getinstances)) { echo("Unable to Run Query: $getinstances"); exit; }
     while($row = mysqli_fetch_array($rs)) { $instances.=("<option value='" . $row['RP_PlanInstance'] . "'>" . $row['RP_PlanInstance'] . "</option>"); }
 
-    echo("<h3>Download Calendar File</h3>\n");
+    echo("<h3 style='margin: 3px 0px 0px 5px'>Download Calendar File</h3><br>");
     echo("<form method='get' action=''><table>");
     echo("<tr><th style='text-align:right'>Reading Plan Instance: </th><td><select name='planinstance'>$instances</select></td></tr>\n");
     echo("<tr><th style='text-align:right'>Full Day or Time Slot: </th><td><select name='dayortime'>");

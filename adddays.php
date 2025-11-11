@@ -2,7 +2,7 @@
 <title>Add Days</title>
 <?php include('posttitle.php'); ?>
 
-<h3 style="margin: 3px 0px 0px 5px">Add Days</h3>
+<h3 style="margin: 3px 0px 0px 5px">Add Days</h3><br>
 <?php
 	if(isset($_POST['submit']))
 	{
