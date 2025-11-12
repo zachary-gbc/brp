@@ -1,5 +1,5 @@
 <?php include('pretitle.php'); ?>
-<title>Add Days</title>
+<title>Bible Reading Plan</title>
 <?php include('posttitle.php'); ?>
 
 <div style="padding-left:35px">

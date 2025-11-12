@@ -9,13 +9,15 @@
 		$days=explode(PHP_EOL,$_POST['adddays']); $values="";
 		foreach($days as $day)
 		{
-			$items=explode(" , ",$day);
+			$day=str_replace("\,","~~|~~",$day);
+			$items=explode(",",$day);
 			$instance=trim(str_replace("'","''",$items[0]));
 			$day=trim(str_replace("'","''",$items[1]));
 			$verses=trim(str_replace("'","''",$items[2]));
 			$version=trim(str_replace("'","''",$items[3]));
 			$notes=trim(str_replace("'","''",$items[4]));
 			$notes=trim(str_replace("\\","\\\\",$notes));
+			$notes=trim(str_replace("~~|~~",",",$notes));
 
 			if($instance != "" && $day != "" && $verses != "" && $version != "")
 			{ $values.="('$instance', '$day', '$verses', '$version', '$notes', now()),"; }
@@ -32,9 +34,10 @@
 	{
 		echo("<form method='post' action=''>\n");
 		echo("Days can be added by pasting them into the textbox below. Please use the following format for all days to be added:<br>");
-		echo("Instance Name , Day (formatted yyyymmdd) , Verses , Version , Notes<br>");
-		echo("Example: All Church Reading Plan , 20260101 , Genesis 1:1-4 , CSB , What happened in this passage?\\nWhere would you apply this?<br>");
-		echo("Notes:<br><ul><li>Make sure that each item is separated by a comma and a space before and after the comma</li>");
+		echo("Instance Name, Day (formatted yyyymmdd), Verses, Version, Notes<br>");
+		echo("Example: All Church Reading Plan, 20260101, Genesis 1:1-4, CSB, What happened in this passage, and what do you think?\\nWhere would you apply this?<br>");
+		echo("Notes:<br><ul><li>Make sure that each item is separated by a comma</li>");
+		echo("<li>If you need to include a comma in the notes, you must include \"\\,\"</li>");
 		echo("<li>If you need to include a line break in the notes, you must include \"\\n\"</li></ul>");
 		echo("<br><br>Add Days:<br><textarea style='width:500px;height:200px' name='adddays'></textarea>");
 		echo("<br><br><input type='submit' name='submit' value='Submit Changes' />\n</form>\n");
