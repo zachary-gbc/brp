@@ -14,8 +14,8 @@
     $getvar="SELECT Var_Value FROM Variables WHERE (Var_Name='PRODID')";
     if(!$rs=mysqli_query($db,$getvar)) { echo("Unable to Run Query: $getvar"); exit; }
     while($row = mysqli_fetch_array($rs)) { $prodid=$row['Var_Value']; }
-    
-    $days="SELECT * FROM ReadingPlanDay WHERE (RP_PlanInstance='$planinstance')";
+
+    $days="SELECT * FROM ReadingPlanDay WHERE (RP_PlanInstance='$planinstance') ORDER BY RP_Date";
     if(!$rs=mysqli_query($db,$days)) { echo("Unable to Run Query: $days"); exit; }
     while($row = mysqli_fetch_array($rs))
     {
@@ -50,7 +50,7 @@
     echo("<title>Create Calendar File</title>");
     include('posttitle.php');
 
-    $getinstances="SELECT RP_PlanInstance FROM ReadingPlanDay GROUP BY RP_PlanInstance"; $instances="";
+    $getinstances="SELECT RP_PlanInstance FROM ReadingPlanDay GROUP BY RP_PlanInstance ORDER BY RP_PlanInstance"; $instances="";
     if(!$rs=mysqli_query($db,$getinstances)) { echo("Unable to Run Query: $getinstances"); exit; }
     while($row = mysqli_fetch_array($rs)) { $instances.=("<option value='" . $row['RP_PlanInstance'] . "'>" . $row['RP_PlanInstance'] . "</option>"); }
 

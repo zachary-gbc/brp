@@ -12,7 +12,7 @@
       $timeframe="AND (RP_Date > '$startday') AND (RP_Date < '$endday')";
     }
 
-    $days="SELECT * FROM ReadingPlanDay WHERE (RP_PlanInstance='$planinstance') $timeframe";
+    $days="SELECT * FROM ReadingPlanDay WHERE (RP_PlanInstance='$planinstance') $timeframe ORDER BY RP_Date";
     if(!$rs=mysqli_query($db,$days)) { echo("Unable to Run Query: $days"); exit; }
     while($row = mysqli_fetch_array($rs))
     {
