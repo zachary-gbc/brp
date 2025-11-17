@@ -7,7 +7,7 @@
 	if(isset($_POST['submit']))
 	{
 		$instance=$_POST['instance']; $instances=array(); $dates=array(); $verses=array(); $versions=array(); $notes=array(); $x=0; $y=0;
-		$days="SELECT * FROM ReadingPlanDay WHERE (RP_PlanInstance='$instance')"; 
+		$days="SELECT * FROM ReadingPlanDays WHERE (RP_PlanInstance='$instance')"; 
 		if(!$rs=mysqli_query($db,$days)) { echo("Unable to Run Query: $days"); exit; }
 		while($row = mysqli_fetch_array($rs))
 		{
@@ -30,14 +30,14 @@
 
 			if(isset($_POST["delete$x"]))
 			{
-				$delete="DELETE FROM ReadingPlanDay WHERE (RP_ID='$id')";
+				$delete="DELETE FROM ReadingPlanDays WHERE (RP_ID='$id')";
 				if(!$rs=mysqli_query($db,$delete)) { echo("Unable to Run Query: $delete"); exit; }
 			}
 			else
 			{
 				if($instance != $instances[$id] || $date != $dates[$id] || $verse != $verses[$id] || $version != $versions[$id] || $note1 != $notes[$id])
 				{
-					$update="UPDATE ReadingPlanDay SET RP_PlanInstance='$instance', RP_Date='$date', RP_Verses='$verse', RP_Version='$version', RP_Notes='$note', RP_UpdateDateTime=now() WHERE (RP_ID='$id')";
+					$update="UPDATE ReadingPlanDays SET RP_PlanInstance='$instance', RP_Date='$date', RP_Verses='$verse', RP_Version='$version', RP_Notes='$note', RP_UpdateDateTime=now() WHERE (RP_ID='$id')";
 					if(!$rs=mysqli_query($db,$update)) { echo("Unable to Run Query: $update"); exit; } else { $y++; }
 				}
 			}
@@ -49,7 +49,7 @@
 	elseif(isset($_GET['instance']))
 	{
 		$instance=$_GET['instance']; $table=""; $x=0;
-		$days="SELECT * FROM ReadingPlanDay WHERE (RP_PlanInstance='$instance') ORDER BY RP_Date";
+		$days="SELECT * FROM ReadingPlanDays WHERE (RP_PlanInstance='$instance') ORDER BY RP_Date";
 		if(!$rs=mysqli_query($db,$days)) { echo("Unable to Run Query: $days"); exit; }
 		while($row = mysqli_fetch_array($rs))
 		{
@@ -73,7 +73,7 @@
 	}
 	else
 	{
-		$getinstances="SELECT RP_PlanInstance FROM ReadingPlanDay GROUP BY RP_PlanInstance ORDER BY RP_PlanInstance"; $instances="";
+		$getinstances="SELECT RP_PlanInstance FROM ReadingPlanDays GROUP BY RP_PlanInstance ORDER BY RP_PlanInstance"; $instances="";
 		if(!$rs=mysqli_query($db,$getinstances)) { echo("Unable to Run Query: $getinstances"); exit; }
 		while($row = mysqli_fetch_array($rs)) { $instances.=("<option value='" . $row['RP_PlanInstance'] . "'>" . $row['RP_PlanInstance'] . "</option>"); }
 

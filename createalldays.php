@@ -12,7 +12,7 @@
       $timeframe="AND (RP_Date > '$startday') AND (RP_Date < '$endday')";
     }
 
-    $days="SELECT * FROM ReadingPlanDay WHERE (RP_PlanInstance='$planinstance') $timeframe ORDER BY RP_Date";
+    $days="SELECT * FROM ReadingPlanDays WHERE (RP_PlanInstance='$planinstance') $timeframe ORDER BY RP_Date";
     if(!$rs=mysqli_query($db,$days)) { echo("Unable to Run Query: $days"); exit; }
     while($row = mysqli_fetch_array($rs))
     {
@@ -27,8 +27,13 @@
     {
       header("Content-type: text/plain");
       header("Content-Disposition: attachment; filename=reading-plan.txt");
+      echo("<script type='text/javascript'>\n");
+      echo("function scrolltotoday() {\nvar today = new Date();\nvar dd = today.getDate();\nvar mm = today.getMonth() + 1;\nvar yyyy = today.getFullYear();\n");
+      echo("if (dd < 10) dd = '0' + dd;\nif (mm < 10) mm = '0' + mm;\n");
+      echo("todayformatted = yyyy.toString() + mm.toString() + dd.toString();\ndivid=\"reading-plan-\" + todayformatted\n");
+      echo("document.getElementById(divid).scrollIntoView({behavior:'smooth',block:'start'});\n}\n</script>\n");
+      echo("<a onclick='scrolltotoday()' href='javascript:void(0);'> &nbsp; -- Scroll to Today -- &nbsp; </a><br><br>\n");
       echo($content);
-
     }
     else { echo("<h2>No Items Available</h2>\n"); }
   }
@@ -38,7 +43,7 @@
     echo("<title>Create HTML File</title>");
     include('posttitle.php');
 
-    $getinstances="SELECT RP_PlanInstance FROM ReadingPlanDay GROUP BY RP_PlanInstance ORDER BY RP_PlanInstance"; $instances="";
+    $getinstances="SELECT RP_PlanInstance FROM ReadingPlanDays GROUP BY RP_PlanInstance ORDER BY RP_PlanInstance"; $instances="";
     if(!$rs=mysqli_query($db,$getinstances)) { echo("Unable to Run Query: $getinstances"); exit; }
     while($row = mysqli_fetch_array($rs)) { $instances.=("<option value='" . $row['RP_PlanInstance'] . "'>" . $row['RP_PlanInstance'] . "</option>"); }
 

@@ -8,6 +8,7 @@
   <a href="/brp/createics.php">Create Calendar</a><br>
   <a href="/brp/createjs.php">Create Javascript</a><br>
   <a href="/brp/createalldays.php">Create All Days HTML</a><br>
+  <a href="/brp/delete.php">Delete Days</a><br>
 </div>
 
 <?php include('footer.php'); ?>

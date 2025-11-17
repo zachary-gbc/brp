@@ -18,6 +18,7 @@
 			$notes=trim(str_replace("'","''",$items[4]));
 			$notes=trim(str_replace("\\","\\\\",$notes));
 			$notes=trim(str_replace("~~|~~",",",$notes));
+			if(substr($notes,0,1) == '"' && substr($notes,-1) == '"') { $notes=substr($notes,1,-1); }
 
 			if($instance != "" && $day != "" && $verses != "" && $version != "")
 			{ $values.="('$instance', '$day', '$verses', '$version', '$notes', now()),"; }
@@ -25,7 +26,7 @@
 
 		if($values != "")
 		{
-			$insert=("INSERT INTO ReadingPlanDay(RP_PlanInstance, RP_Date, RP_Verses, RP_Version, RP_Notes, RP_UpdateDateTime) VALUES " . substr($values,0,-1) . ";");
+			$insert=("INSERT INTO ReadingPlanDays(RP_PlanInstance, RP_Date, RP_Verses, RP_Version, RP_Notes, RP_UpdateDateTime) VALUES " . substr($values,0,-1) . ";");
 			if(!mysqli_query($db,$insert)) { echo("Unable to Run Query: $insert"); exit; }
 			else { echo("<h2>Days Added Successfully<br><br></h3><a href='editdays.php'>Click to View/Edit Days</a>"); }
 		}
@@ -40,7 +41,7 @@
 		echo("<li>If you need to include a comma in the notes, you must include \"\\,\"</li>");
 		echo("<li>If you need to include a line break in the notes, you must include \"\\n\"</li></ul>");
 		echo("<br><br>Add Days:<br><textarea style='width:500px;height:200px' name='adddays'></textarea>");
-		echo("<br><br><input type='submit' name='submit' value='Submit Changes' />\n</form>\n");
+		echo("<br><br><input type='submit' name='submit' value='Add Days' />\n</form>\n");
 	}
 ?>
 
