@@ -31,7 +31,7 @@
     if($content != "")
     {
       header("Content-type: text/plain");
-      header("Content-Disposition: attachment; filename=reading-plan.txt");
+      header("Content-Disposition: attachment; filename=" . str_replace(" ","-",$planinstance) . ".ics");
 
       echo("BEGIN:VCALENDAR\n");
       echo("PRODID:-//$prodid/NONSGML $planinstance//EN\n");
